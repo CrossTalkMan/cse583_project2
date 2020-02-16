@@ -22,6 +22,10 @@ test_featureVector = test_featureVector(:,feature_idx);
 
 %% tryLDA
 train_featureVector = train_featureVector.';
+test_featureVector = test_featureVector.';
+train_labels = myMatch(dataset,train_labels);
+test_labels = myMatch(dataset,test_labels);
+
 x_m = mean(train_featureVector,2);
 x_c1 = train_featureVector(:,1:30);
 x_c2 = train_featureVector(:,31:66);
@@ -56,11 +60,19 @@ Sb = 30 * (x_m_c1-x_m)*(x_m_c1-x_m).' ...
 
 W = W(:,order);
 
-Y=W(:,1:2).'*train_featureVector;
+newX=W(:,1:2).'*train_featureVector;
+newTest = W(:,1:2).'*test_featureVector;
 
-plot(Y(1,1:30),Y(2,1:30),'+' ...
-    ,Y(1,31:66),Y(2,31:66),'o' ...
-    ,Y(1,67:end),Y(2,67:end),'x');
+predictLabel = myKNN(newX,train_labels,newTest,3);
+
+confMat = myConfusion(test_labels,predictLabel,3)
+classMat = confMat./sum(confMat,2)
+test_acc = mean(diag(classMat))
+test_std = std(diag(classMat))
+
+% plot(Y(1,1:30),Y(2,1:30),'+' ...
+%     ,Y(1,31:66),Y(2,31:66),'o' ...
+%     ,Y(1,67:end),Y(2,67:end),'x');
 
 
 

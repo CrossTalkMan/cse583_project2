@@ -3,7 +3,7 @@ dataset = 'wine';
 [train_featureVector, train_labels, test_featureVector, test_labels] = loadDataset(dataset);
 numGroups = length(countcats(test_labels));
 
-test_labels = string(test_labels); % easy to compare
+test_labels = myMatch(dataset,test_labels); % easy to compare
 
 feature_idx = 1:size(train_featureVector,2);
 
@@ -30,8 +30,7 @@ W=X.'*X\X.'*T;
 
 %% predict and generate confusion matrix
 predictY = myPredictLeastSquare(W,test_featureVector);
-confMat = myConfusionLeastSquare(test_labels,predictY ...
-                                        ,numGroups,'wine')
+confMat = myConfusion(test_labels,predictY,numGroups)
 classMat = confMat./sum(confMat,2)
 
 test_acc = mean(diag(classMat))

@@ -15,5 +15,4 @@ for i=1:length(testData)
     end
     T(i,1) = index;
 end
-T=string(T);
 return
