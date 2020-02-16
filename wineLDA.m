@@ -23,6 +23,8 @@ test_featureVector = test_featureVector(:,feature_idx);
 %% tryLDA
 train_featureVector = train_featureVector.';
 test_featureVector = test_featureVector.';
+
+% map labels to double values
 train_labels = myMatch(dataset,train_labels);
 test_labels = myMatch(dataset,test_labels);
 

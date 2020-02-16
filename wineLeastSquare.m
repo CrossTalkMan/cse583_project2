@@ -3,7 +3,7 @@ dataset = 'wine';
 [train_featureVector, train_labels, test_featureVector, test_labels] = loadDataset(dataset);
 numGroups = length(countcats(test_labels));
 
-test_labels = myMatch(dataset,test_labels); % easy to compare
+test_labels = myMatch(dataset,test_labels); % map labels to double values
 
 feature_idx = 1:size(train_featureVector,2);
 
