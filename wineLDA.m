@@ -65,7 +65,10 @@ W = W(:,order);
 newX=W(:,1:2).'*train_featureVector;
 newTest = W(:,1:2).'*test_featureVector;
 
-predictLabel = myKNN(newX,train_labels,newTest,3);
+% KNN on original space
+predictLabel = myKNN(train_featureVector,train_labels,test_featureVector,3);
+% KNN on projected space
+%predictLabel = myKNN(newX,train_labels,newTest,3);
 
 confMat = myConfusion(test_labels,predictLabel,3)
 classMat = confMat./sum(confMat,2)
