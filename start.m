@@ -31,6 +31,7 @@ featureB = 7;
 feature_idx = [featureA,featureB];
 numGroups = length(countcats(test_labels));
 % Uncomment the following line to use all features
+% feature_idx = 1:size(train_featureVector,2);
 
 
 train_featureVector = train_featureVector(:,feature_idx);
