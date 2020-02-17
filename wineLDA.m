@@ -70,7 +70,7 @@ newTest = W(:,1:2).'*test_featureVector;
 % KNN on projected space
 predictLabel = myKNN(newX,train_labels,newTest,3);
 
-confMat = myConfusion(test_labels,predictLabel,3)
+confMat = myConfusion(test_labels,predictLabel,numGroups)
 classMat = confMat./sum(confMat,2)
 test_acc = mean(diag(classMat))
 test_std = std(diag(classMat))
