@@ -14,6 +14,26 @@ switch lower(class)
                 index(i)=3;
             end
         end
+    case 'taiji'
+        for i=1:length(group)
+            if group(i)=='0'
+                index(i)=1;
+            elseif group(i)=='1'
+                index(i)=2;
+            elseif group(i)=='2'
+                index(i)=3;
+            elseif group(i)=='3'
+                index(i)=4;
+            elseif group(i)=='5'
+                index(i)=5;
+            elseif group(i)=='6'
+                index(i)=6;
+            elseif group(i)=='7'
+                index(i)=7;
+            else % 9
+                index(i)=8;
+            end
+        end
     case 'wallpaper'
         for i=1:length(group)
             if group(i)=='P1'
