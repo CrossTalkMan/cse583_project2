@@ -1,5 +1,5 @@
 # cse583_project2
-# does not include provided data and `loaddata.m`
+## does not include provided data and `loaddata.m`
 
 `wineLDA.m` Fisher Projection on wine dataset.
 'wallPaperLDA.m' Fisher Projection on wallpaper dataset.
