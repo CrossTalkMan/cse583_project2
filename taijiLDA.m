@@ -94,8 +94,8 @@ Sb = 1767 * (x_m_c1-x_m)*(x_m_c1-x_m).' ...
 
 W = W(:,order);
 
-newX=W(:,1:12).'*train_featureVector;
-newTest = W(:,1:12).'*test_featureVector;
+newX=W(:,1:7).'*train_featureVector;
+newTest = W(:,1:7).'*test_featureVector;
 
 % KNN on original space
 % predictLabel = myKNN(train_featureVector,train_labels,test_featureVector,3);
@@ -106,6 +106,13 @@ confMat = myConfusion(test_labels,predictLabel,numGroups)
 classMat = confMat./sum(confMat,2)
 test_acc = mean(diag(classMat))
 test_std = std(diag(classMat))
+
+xvalues = unique(ori_labels);
+yvalues = unique(ori_labels);
+h = heatmap(xvalues,yvalues,confMat);
+h.Title = 'Confusion Matrix';
+h.XLabel = 'Predict';
+h.YLabel = 'Ground Truth';
 % 
 % % plot(Y(1,1:30),Y(2,1:30),'+' ...
 % %     ,Y(1,31:66),Y(2,31:66),'o' ...

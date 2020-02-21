@@ -22,6 +22,7 @@ train_featureVector = train_featureVector.';
 test_featureVector = test_featureVector.';
 
 % map labels to double values
+labels_ori = train_labels;
 train_labels = myMatch(dataset,train_labels);
 test_labels = myMatch(dataset,test_labels);
 
@@ -62,21 +63,39 @@ Sb = 100 * Sb;
 
 W = W(:,order);
 
-newX=W(:,1:10).'*train_featureVector;
-newTest = W(:,1:10).'*test_featureVector;
+for i=2:16
+    newX = W(:,1:i).'*train_featureVector;
+    newTest = W(:,1:i).'*train_featureVector;
+    predictLabel = myKNN(newX,train_labels,newTest,3);
+    confMat = myConfusion(test_labels,predictLabel,numGroups);
+    classMat = confMat./sum(confMat,2);
+    test_acc = mean(diag(classMat));
+    fprintf("projected dimension:%d, test_acc:%1.4f\n", i, test_acc);
+end
 
-% KNN on original space
-% predictLabel = myKNN(train_featureVector,train_labels,test_featureVector,3);
-% KNN on projected space
-predictLabel = myKNN(newX,train_labels,newTest,9);
-
-confMat = myConfusion(test_labels,predictLabel,numGroups)
-classMat = confMat./sum(confMat,2)
-test_acc = mean(diag(classMat))
-test_std = std(diag(classMat))
+xvalues = unique(labels_ori);
+yvalues = unique(labels_ori);
+h = heatmap(xvalues,yvalues,confMat);
+h.Title = 'Confusion Matrix';
+h.XLabel = 'Predict';
+h.YLabel = 'Ground Truth';
+% 
+% newX=W(:,1:10).'*train_featureVector;
+% newTest = W(:,1:10).'*test_featureVector;
+% 
+% % KNN on original space
+% % predictLabel = myKNN(train_featureVector,train_labels,test_featureVector,3);
+% % KNN on projected space
+% predictLabel = myKNN(newX,train_labels,newTest,9);
+% 
+% confMat = myConfusion(test_labels,predictLabel,numGroups)
+% classMat = confMat./sum(confMat,2)
+% test_acc = mean(diag(classMat))
+% test_std = std(diag(classMat))
 
 
 %% Need a comparasion between different dimension and K of KNN
+
 
 
 

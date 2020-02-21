@@ -66,18 +66,21 @@ newX=W(:,1:2).'*train_featureVector;
 newTest = W(:,1:2).'*test_featureVector;
 
 % KNN on original space
-% predictLabel = myKNN(train_featureVector,train_labels,test_featureVector,3);
+predictLabel = myKNN(train_featureVector,train_labels,test_featureVector,3);
 % KNN on projected space
-predictLabel = myKNN(newX,train_labels,newTest,3);
+% predictLabel = myKNN(newX,train_labels,newTest,3);
 
 confMat = myConfusion(test_labels,predictLabel,numGroups)
 classMat = confMat./sum(confMat,2)
 test_acc = mean(diag(classMat))
 test_std = std(diag(classMat))
 
-% plot(Y(1,1:30),Y(2,1:30),'+' ...
-%     ,Y(1,31:66),Y(2,31:66),'o' ...
-%     ,Y(1,67:end),Y(2,67:end),'x');
+xvalues = {'1','2','3'};
+yvalues = {'1','2','3'};
+h = heatmap(xvalues,yvalues,confMat);
+h.Title = 'Confusion Matrix';
+h.XLabel = 'Predict';
+h.YLabel = 'Ground Truth';
 
 
 

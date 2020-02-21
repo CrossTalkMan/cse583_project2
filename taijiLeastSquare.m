@@ -4,6 +4,7 @@ dataset = 'taiji';
 numGroups = length(countcats(test_labels));
 
 % map labels to double values
+ori_labels = train_labels;
 train_labels = myMatch(dataset,train_labels);
 test_labels = myMatch(dataset,test_labels); 
 
@@ -31,3 +32,17 @@ classMat = confMat./sum(confMat,2)
 
 test_acc = mean(diag(classMat))
 test_std = std(diag(classMat))
+
+train_predictY = myPredictLeastSquare(W,train_featureVector);
+train_confMat = myConfusion(train_labels,train_predictY,numGroups)
+train_classMat = train_confMat./sum(train_confMat,2)
+
+train_acc = mean(diag(train_classMat))
+train_std = std(diag(train_classMat))
+
+xvalues = unique(ori_labels);
+yvalues = unique(ori_labels);
+h = heatmap(xvalues,yvalues,confMat);
+h.Title = 'Confusion Matrix';
+h.XLabel = 'Predict';
+h.YLabel = 'Ground Truth';

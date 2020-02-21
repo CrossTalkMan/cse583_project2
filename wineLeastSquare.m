@@ -5,9 +5,14 @@ numGroups = length(countcats(test_labels));
 
 % map labels to double values
 train_labels = myMatch(dataset,train_labels);
+ori = test_labels;
 test_labels = myMatch(dataset,test_labels); 
 
 feature_idx = 1:size(train_featureVector,2);
+
+% featureA = 1;
+% featureB = 7;
+% feature_idx = [featureA,featureB];
 
 
 train_featureVector = train_featureVector(:,feature_idx);
@@ -37,6 +42,32 @@ classMat = confMat./sum(confMat,2)
 
 test_acc = mean(diag(classMat))
 test_std = std(diag(classMat))
+
+train_predictY = myPredictLeastSquare(W,train_featureVector);
+train_confMat = myConfusion(train_labels,train_predictY,numGroups)
+train_classMat = train_confMat./sum(train_confMat,2)
+
+train_acc = mean(diag(train_classMat))
+train_std = std(diag(train_classMat))
+
+xvalues = {'1','2','3'};
+yvalues = {'1','2','3'};
+h = heatmap(xvalues,yvalues,train_confMat);
+h.Title = 'Confusion Matrix';
+h.XLabel = 'Predict';
+h.YLabel = 'Ground Truth';
+
+xvalues = {'1','2','3'};
+yvalues = {'1','2','3'};
+h = heatmap(xvalues,yvalues,confMat);
+h.Title = 'Confusion Matrix';
+h.XLabel = 'Predict';
+h.YLabel = 'Ground Truth';
+% 
+% figure(1)
+% myVisualizeBoundries(W,test_featureVector,ori,1,2)
+% title('{\bf Classification on 2 Features of Wine}')
+
                                     
 
 

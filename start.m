@@ -31,7 +31,7 @@ featureB = 7;
 feature_idx = [featureA,featureB];
 numGroups = length(countcats(test_labels));
 % Uncomment the following line to use all features
-% feature_idx = 1:size(train_featureVector,2);
+feature_idx = 1:size(train_featureVector,2);
 
 
 train_featureVector = train_featureVector(:,feature_idx);
@@ -77,7 +77,7 @@ test_std = std(diag(test_ClassMat))
 %      classification boundries to work with your code.. Look at the code
 %      for more details
 figure(1)
-visualizeBoundaries(MdlLinear,test_featureVector,test_labels,1,2)
+visualizeBoundaries(MdlLinear,test_featureVector,test_labels,1,7)
 title('{\bf Linear Discriminant Classification}')
 export_fig linear_discriminant_example -png -transparent
 %%  Display the classified regions of two of the feature dimensions  
@@ -85,6 +85,6 @@ export_fig linear_discriminant_example -png -transparent
 %      function (the function for finding the class labels from a set of
 %      features).
 figure(2)
-h = visualizeBoundariesFill(MdlLinear,test_featureVector,test_labels,1,2);
+h = visualizeBoundariesFill(MdlLinear,test_featureVector,test_labels,1,7);
 title('{\bf Classification Area}')
 export_fig classification_fill_example -png -transparent

@@ -14,6 +14,14 @@ switch lower(class)
                 index(i)=3;
             end
         end
+    case 'face'
+        for i=1:length(group)
+            if group(i)=='1'
+                index(i)=1;
+            else
+                index(i)=2;
+            end
+        end
     case 'taiji'
         for i=1:length(group)
             if group(i)=='0'
